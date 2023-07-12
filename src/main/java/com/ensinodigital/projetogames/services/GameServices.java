@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ensinodigital.projetogames.DTO.GameDTO;
 import com.ensinodigital.projetogames.DTO.GameMinDTO;
 import com.ensinodigital.projetogames.entities.Game;
+import com.ensinodigital.projetogames.projections.GameMinProjection;
 import com.ensinodigital.projetogames.repositeries.GameRepository;
 
 
@@ -34,6 +35,13 @@ public class GameServices {
 		return result.stream().map(x -> 
 		new GameMinDTO(x)).toList();
 	}
+    
+    @Transactional(readOnly = true) 
+   	public List<GameMinDTO> findByList(Long listId){
+   		List<GameMinProjection> result = gameRepository.searchByList(listId);
+   		return result.stream().map(x -> 
+   		new GameMinDTO(x)).toList();
+   	}
 	
 	
 }
